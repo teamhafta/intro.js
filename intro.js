@@ -1717,6 +1717,10 @@
 
     //set proper position
     _placeTooltip.call(this, hintElement, tooltipLayer, arrowLayer, null, true);
+
+    if (typeof (this._hintAfterClickCallback) !== 'undefined') {
+      this._hintAfterClickCallback.call(this, hintElement, item, stepId, tooltipLayer, arrowLayer);
+    }
   }
 
   /**
@@ -1932,6 +1936,14 @@
         this._hintClickCallback = providedCallback;
       } else {
         throw new Error('Provided callback for onhintclick was not a function.');
+      }
+      return this;
+    },
+    posthintclick: function(providedCallback) {
+      if (typeof (providedCallback) === 'function') {
+        this._hintAfterClickCallback = providedCallback;
+      } else {
+        throw new Error('Provided callback for posthintclick was not a function.');
       }
       return this;
     },
